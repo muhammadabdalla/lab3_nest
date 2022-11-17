@@ -1,5 +1,5 @@
 import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
-import { StatusServiceService } from '../status-service/status-service.service';
+import { StatusServiceService } from './status.service';
 
 @Controller('status')
 export class StatusControllerController {

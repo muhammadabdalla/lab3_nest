@@ -1,12 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { TaskEntity } from '../task/task.entity';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('user')
 export class UserEntity extends BaseEntity {
@@ -39,6 +31,10 @@ export class UserEntity extends BaseEntity {
   })
   email: string;
 
-  @OneToMany(() => TaskEntity, (task: TaskEntity) => task.user)
-  tasks: TaskEntity[];
+  // @OneToMany(() => TaskEntity, (task: TaskEntity) => task.user)
+  // tasks: TaskEntity[];
+
+  // @OneToOne(() => StatusEntity)
+  // @JoinColumn()
+  // status: StatusEntity;
 }

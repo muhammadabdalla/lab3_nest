@@ -9,6 +9,10 @@ import { TaskEntity } from './modules/task/task.entity';
 import { UserEntity } from './modules/user/user.entity';
 import { StatusEntity } from './modules/status/status.entity';
 import { LoggerMiddleware } from './middlewares/logger-middleware';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthController } from './modules/auth/auth.controller';
+import { AuthService } from './modules/auth/auth.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -17,7 +21,7 @@ import { LoggerMiddleware } from './middlewares/logger-middleware';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '123',
+      password: 'admin',
       database: 'tasks-management-system-iti',
       synchronize: true,
       entities: [TaskEntity, UserEntity, StatusEntity],
@@ -25,9 +29,10 @@ import { LoggerMiddleware } from './middlewares/logger-middleware';
     UserModule,
     TaskModule,
     StatusModule,
+    AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [AppService, AuthService, JwtService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

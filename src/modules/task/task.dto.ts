@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class taskDto {
+export class TaskDto {
   @IsString()
   @IsNotEmpty()
   title: string;
 
-  @IsNumber()
+  @IsBoolean()
   @IsOptional()
-  statusId: number;
+  completed: boolean;
 }

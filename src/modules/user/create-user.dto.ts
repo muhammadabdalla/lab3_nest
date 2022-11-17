@@ -16,7 +16,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: string;
 
-  @Transform(({ value }) => parseInt(value))
+  @Transform(({ value }) => parseInt(value || 0))
   @IsNumber()
   @IsNotEmpty()
   age: number;

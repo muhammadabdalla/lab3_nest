@@ -1,11 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { UserEntity } from '../user/user.entity';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('task')
 export class TaskEntity extends BaseEntity {
@@ -15,12 +8,9 @@ export class TaskEntity extends BaseEntity {
   @Column()
   title: string;
 
-  @Column('int', { default: 2 })
-  statusId: number;
+  @Column('boolean', { default: false })
+  completed: boolean;
 
-  @ManyToOne(() => UserEntity, (user: UserEntity) => user.tasks, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  user: UserEntity;
+  // @ManyToOne(() => UserEntity, (user: UserEntity) => user.tasks)
+  // user: UserEntity;
 }

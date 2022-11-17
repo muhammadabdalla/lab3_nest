@@ -6,10 +6,9 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Put,
 } from '@nestjs/common';
-import { TaskServiceService } from '../task-service/task-service.service';
-import { taskDto } from '../task.dto';
+import { TaskServiceService } from '../task/task.service';
+import { TaskDto } from './task.dto';
 
 @Controller('tasks')
 export class TaskControllerController {
@@ -20,8 +19,8 @@ export class TaskControllerController {
     return tasks;
   }
   @Post()
-  async addOne(@Body() TaskDto: taskDto) {
-    const task = await this.taskService.addOne(TaskDto);
+  async addOne(@Body('taskDto') taskDto: TaskDto) {
+    const task = await this.taskService.addOne(taskDto);
     return task;
   }
   @Delete(':taskId')

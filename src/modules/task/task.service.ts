@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { taskDto } from '../task.dto';
-import { TaskEntity } from '../task.entity';
+import { TaskDto } from './task.dto';
+import { TaskEntity } from './task.entity';
 
 @Injectable()
 export class TaskServiceService {
@@ -14,21 +14,15 @@ export class TaskServiceService {
     const tasks = await this.taskRepository.find();
     return tasks;
   }
-  async addOne(taskDto: taskDto) {
-    // const { title, userId, statusId } = taskDto;
-    const { title, statusId } = taskDto;
-    const task = new TaskEntity();
-    task.title = title;
-    //task.userId = userId;
-    task.statusId = statusId ?? 2;
-    await task.save();
-    const allTasks = await this.findAll();
-    return allTasks;
+  async addOne(taskDto: TaskDto) {
+    const task = this.taskRepository.create(taskDto);
+
+    return this.taskRepository.save(task);
   }
   async deleteOneRecord(id: number) {
     const record = await this.taskRepository.findOneBy({ id: id });
     await record.remove();
-    const allTasks = await this.findAll();
+    const allTasks = await this.taskRepository.find();
     return allTasks;
   }
   async updateOne(id: number) {
@@ -37,12 +31,12 @@ export class TaskServiceService {
       await this.taskRepository
         .createQueryBuilder()
         .update(record)
-        .set({ statusId: 1 })
+        .set({ completed: true })
         .where('id = :id', { id: id })
         .execute();
     }
 
-    const allTasks = await this.findAll();
+    const allTasks = await this.taskRepository.find();
     return allTasks;
   }
 }
